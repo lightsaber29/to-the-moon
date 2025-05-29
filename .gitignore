@@ -19,3 +19,6 @@ config/KIS*
 
 # 설치된 패키지 목록
 requirements.txt
+
+# 전략 파일 임시
+strategies/
