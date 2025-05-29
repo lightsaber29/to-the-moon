@@ -10,8 +10,8 @@ from zoneinfo import ZoneInfo  # 시간대 처리용
 # kis_api 모듈을 사용할 수 있도록 src 디렉터리를 모듈 탐색 경로에 추가
 sys.path.insert(0, os.path.dirname(__file__))
 
-from kis_api import kis_auth  # 인증 및 환경 설정 모듈
-from kis_api.kis_ovrseastk import get_overseas_price_quot_price, get_overseas_price_quot_inquire_daily_chartprice, get_overseas_price_quot_inquire_time_itemchartprice  # 현재가, 일봉 및 인트라데이 조회 함수
+from kis_sdk import kis_auth  # 인증 및 환경 설정 모듈
+from kis_sdk.kis_ovrseastk import get_overseas_price_quot_price, get_overseas_price_quot_inquire_daily_chartprice, get_overseas_price_quot_inquire_time_itemchartprice  # 현재가, 일봉 및 인트라데이 조회 함수
 from strategies.trading_conditions import compute_macd, compute_ichimoku, is_long_entry, is_short_entry  # MACD 및 일목균형표 계산 함수
 
 def main():
