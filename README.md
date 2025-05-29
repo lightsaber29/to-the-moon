@@ -1,4 +1,4 @@
-# dreams_come_true
+# python toy project
 
 ### 실행
 ```python
