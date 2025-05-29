@@ -16,3 +16,6 @@ logs/
 
 # user token
 config/KIS*
+
+# 설치된 패키지 목록
+requirements.txt
