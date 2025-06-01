@@ -28,7 +28,7 @@ for line in commits:
         "properties": {
             "커밋 메시지": {"title": [{"text": {"content": message}}]},
             "작성자": {"rich_text": [{"text": {"content": author}}]},
-            "시간": {"date": {"start": timestamp}},
+            "날짜": {"date": {"start": timestamp}},
             "링크": {"url": commit_url}
         }
     }
