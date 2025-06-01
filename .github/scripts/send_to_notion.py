@@ -41,3 +41,4 @@ for line in commits:
 
     response = requests.post("https://api.notion.com/v1/pages", headers=headers, data=json.dumps(payload))
     print(f"📌 {message} → {response.status_code}")
+    print(f"Response JSON: {response.text}")
