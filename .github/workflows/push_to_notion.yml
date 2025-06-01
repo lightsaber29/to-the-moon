@@ -1,0 +1,31 @@
+name: Send commits to Notion
+
+on:
+  push:
+    branches:
+      - main  # main 브랜치 merge 시 실행
+
+jobs:
+  send-to-notion:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Send commits to Notion
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+          GITHUB_EVENT_BEFORE: ${{ github.event.before }}
+          GITHUB_EVENT_AFTER: ${{ github.event.after }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python .github/scripts/send_to_notion.py
