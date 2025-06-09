@@ -22,3 +22,6 @@ requirements.txt
 
 # 전략 파일 임시
 strategies/
+
+# 지표 데이터 파일 제외
+calendar_data.csv
