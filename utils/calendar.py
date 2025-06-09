@@ -61,7 +61,9 @@ class Investing():
 
 			for row in rows:
 				news = {
-					'timestamp': None,
+					'timestamp_default': None,
+					'timestamp_utc': None,
+					'timestamp_kr': None,
 					'country': None,
 					'impact': None,
 					'url': None,
@@ -74,7 +76,15 @@ class Investing():
 				}
 
 				_datetime = row.attrs['data-event-datetime']
-				news['timestamp'] = arrow.get(_datetime, "YYYY/MM/DD HH:mm:ss").timestamp
+				# 미국 동부시간(Eastern Time) 기준으로 되어있음 -> 해당 값 변환
+				eastern_time = arrow.get(_datetime, "YYYY/MM/DD HH:mm:ss").replace(tzinfo='America/New_York')
+				news['timestamp_default'] = eastern_time.format('YYYY-MM-DD HH:mm:ss')
+
+				utc_time = eastern_time.to('UTC')
+				news['timestamp_utc'] = utc_time.format('YYYY-MM-DD HH:mm:ss')
+
+				kr_time = eastern_time.to('Asia/Seoul')
+				news['timestamp_kr'] = kr_time.format('YYYY-MM-DD HH:mm:ss')
 
 				cols = row.find('td', {"class": "flagCur"})
 				flag = cols.find('span')
@@ -126,6 +136,11 @@ class Investing():
 				# 영향도: 3 이상
 				impact_value = int(news['impact']) if str(news['impact']).isdigit() else 0
 				if impact_value < 3:
+					continue
+
+				# 특정 문자열 포함 시 건너뛰기
+				skip_keywords = ["Oil", "-Year"]
+				if any(keyword in news['name'] for keyword in skip_keywords):
 					continue
 
 				self.result.append(news)
