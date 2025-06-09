@@ -57,7 +57,7 @@ class Investing():
 
 			table = soup.find('table', {"id": "economicCalendarData"})
 			tbody = table.find('tbody')
-			rows = tbody.findAll('tr', {"class": "js-event-item"})
+			rows = tbody.find_all('tr', {"class": "js-event-item"})
 
 			for row in rows:
 				news = {
@@ -81,7 +81,7 @@ class Investing():
 				news['country'] = flag.get('title')
 
 				impact = row.find('td', {"class": "sentiment"})
-				bull = impact.findAll('i', {"class": "grayFullBullishIcon"})
+				bull = impact.find_all('i', {"class": "grayFullBullishIcon"})
 				news['impact'] = len(bull)
 
 				event = row.find('td', {"class": "event"})
@@ -127,9 +127,12 @@ class Investing():
 
 if __name__ == "__main__":
 	# 한 달치 데이터
-	i = Investing(date_from="2024-06-01", date_to="2024-06-30")
+	date_from = "2025-06-01"
+	date_to = "2025-06-30"
+	i = Investing(date_from=date_from, date_to=date_to)
 	news_data = i.news()
-	print(*news_data, sep='\n')
+	print(f'date_from: {date_from}, date_to: {date_to} 지표 데이터 개수: {len(news_data)}')
+	# print(*news_data, sep='\n')
 
 	# CSV로 저장
 	import csv
