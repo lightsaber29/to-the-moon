@@ -117,6 +117,17 @@ class Investing():
 				else:
 					news['signal'] = Unknow()
 
+
+				# 데이터 필터링
+				# 국가: 미국
+				if news['country'] != 'United States':
+					continue
+
+				# 영향도: 3 이상
+				impact_value = int(news['impact']) if str(news['impact']).isdigit() else 0
+				if impact_value < 3:
+					continue
+
 				self.result.append(news)
 
 		except HTTPError as error:
